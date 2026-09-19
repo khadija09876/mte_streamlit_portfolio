@@ -809,7 +809,7 @@ if submitted:
 st.markdown('<div id="contact"></div>', unsafe_allow_html=True)
 
 st.markdown(
-    f"""
+    """
 <div class="section {'rtl' if is_ar else ''}">
     <div class="contact-box">
         <div class="section-kicker" style="color:#e86b70;">GET IN TOUCH</div>
