@@ -1,5 +1,4 @@
 import streamlit as st
-import base64
 from urllib.parse import quote
 
 # ============================================================
@@ -21,7 +20,6 @@ COMPANY_NAME = "MTE"
 COMPANY_EN = "MTE Air Conditioning & Refrigeration"
 COMPANY_AR = "مؤسسة MTE للتبريد والتكييف"
 
-EMAIL = "info@mte-ac.com"
 PHONE_1 = "0500000000"
 PHONE_2 = "0570000000"
 
@@ -30,7 +28,6 @@ ADDRESS_AR = "الرياض، حي الربوة، شارع ابن ذي الغفا
 
 MAP_QUERY = quote(ADDRESS_EN)
 MAP_URL = f"https://www.google.com/maps/search/?api=1&query={MAP_QUERY}"
-EMAIL_URL = f"mailto:{EMAIL}"
 PHONE_URL_1 = f"tel:{PHONE_1}"
 PHONE_URL_2 = f"tel:{PHONE_2}"
 WHATSAPP_URL = f"https://wa.me/{PHONE_1.replace('+', '').replace(' ', '').replace('-', '')}"
@@ -79,22 +76,13 @@ T = {
         "w3": "Maintenance Mindset",
         "w3d": "Preventive care to help systems operate efficiently.",
         "contact_title": "Contact MTE",
-        "contact_text": "Need a quotation, maintenance visit or technical assistance? Get in touch.",
-        "email": "Email Us",
+        "contact_text": "Need a quotation, maintenance visit or technical assistance? Get in touch via call or WhatsApp.",
         "call1": "Call Now",
         "call2": "Call Number 2",
         "directions": "Get Directions",
         "whatsapp": "WhatsApp",
         "address": "Address",
         "phone": "Phone",
-        "email_label": "Email",
-        "request_title": "Request a Service",
-        "name": "Your Name",
-        "service": "Service Required",
-        "message": "Message",
-        "send": "Prepare Email Request",
-        "success": "Your email app should open with a prepared service request.",
-        "select_service": "Select a service",
         "translation": "Language",
         "english": "English",
         "arabic": "العربية",
@@ -141,27 +129,18 @@ T = {
         "w3": "نهج الصيانة",
         "w3d": "العناية الوقائية للمساعدة في تشغيل الأنظمة بكفاءة.",
         "contact_title": "تواصل مع MTE",
-        "contact_text": "تحتاج إلى عرض سعر أو زيارة صيانة أو مساعدة فنية؟ تواصل معنا.",
-        "email": "راسلنا",
+        "contact_text": "تحتاج إلى عرض سعر أو زيارة صيانة أو مساعدة فنية؟ تواصل معنا عبر الاتصال أو الواتساب.",
         "call1": "اتصل الآن",
         "call2": "الاتصال بالرقم 2",
         "directions": "الاتجاهات",
         "whatsapp": "واتساب",
         "address": "العنوان",
         "phone": "الهاتف",
-        "email_label": "البريد الإلكتروني",
-        "request_title": "طلب خدمة",
-        "name": "الاسم",
-        "service": "الخدمة المطلوبة",
-        "message": "الرسالة",
-        "send": "تجهيز طلب بالبريد",
-        "success": "سيتم فتح تطبيق البريد مع طلب خدمة جاهز.",
-        "select_service": "اختر الخدمة",
         "translation": "اللغة",
         "english": "English",
         "arabic": "العربية",
         "footer": "MTE للتكييف والتبريد — حلول HVAC احترافية",
-        "note": "قم بتعديل أرقام الاتصال والبريد في قسم CONFIGURATION قبل النشر.",
+        "note": "قم بتعديل أرقام الاتصال في قسم CONFIGURATION قبل النشر.",
     },
 }
 
@@ -186,7 +165,7 @@ t = T[lang]
 is_ar = lang == "ar"
 
 # ------------------------------------------------------------
-# CUSTOM CSS
+# CUSTOM CSS (RESPONSIVE & ALIGNED)
 # ------------------------------------------------------------
 st.markdown(
     """
@@ -235,6 +214,7 @@ html {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .brand-left {
@@ -270,6 +250,7 @@ html {
     font-weight: 900;
     background: white;
     box-shadow: 0 3px 10px rgba(18,59,143,.10);
+    margin: 0 auto;
 }
 
 .brand-right {
@@ -306,6 +287,7 @@ html {
     font-size: .86rem;
     font-weight: 600;
     background: white;
+    transition: all 0.2s ease;
 }
 
 .nav-pills a:hover {
@@ -321,7 +303,7 @@ html {
     padding: 38px 42px;
     background: linear-gradient(135deg, #ffffff 0%, #f5f8fd 100%);
     box-shadow: 0 10px 35px rgba(18,59,143,.08);
-    margin-bottom: 34px;
+    margin-bottom: 24px;
 }
 
 .badge {
@@ -339,8 +321,8 @@ html {
 
 .hero h1 {
     color: var(--blue-dark);
-    font-size: clamp(2rem, 5vw, 3.6rem);
-    line-height: 1.04;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    line-height: 1.1;
     margin: 16px 0 12px 0;
     font-weight: 850;
 }
@@ -368,7 +350,7 @@ html {
 
 .section-title {
     color: var(--blue-dark);
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 850;
     margin: 0 0 7px 0;
 }
@@ -386,6 +368,8 @@ html {
     border-radius: 10px;
     padding: 22px;
     box-shadow: 0 7px 25px rgba(15,35,70,.055);
+    transition: all 0.2s ease;
+    margin-bottom: 12px;
 }
 
 .card:hover {
@@ -416,6 +400,7 @@ html {
     color: var(--muted);
     line-height: 1.65;
     font-size: .91rem;
+    margin: 0;
 }
 
 .stat {
@@ -424,6 +409,7 @@ html {
     background: var(--soft);
     border: 1px solid var(--line);
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .stat strong {
@@ -500,23 +486,6 @@ html {
     background: #edf3fd !important;
 }
 
-.stButton > button[kind="primary"] {
-    background: var(--red) !important;
-    border: 1px solid var(--red) !important;
-    color: white !important;
-}
-
-.stButton > button[kind="primary"]:hover {
-    background: var(--red-dark) !important;
-}
-
-div[data-testid="stForm"] {
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 22px;
-    background: #fafcff;
-}
-
 .footer {
     border-top: 1px solid var(--line);
     margin-top: 60px;
@@ -532,11 +501,13 @@ div[data-testid="stForm"] {
     font-family: "Cairo", sans-serif;
 }
 
-@media (max-width: 700px) {
-    .hero { padding: 28px 22px; }
-    .mte-brand-row { flex-direction: column; align-items: flex-start; }
-    .brand-right { text-align: left; }
-    .mte-logo { align-self: center; }
+/* Mobile & Tablet Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero { padding: 24px 20px; }
+    .mte-brand-row { flex-direction: column; text-align: center; justify-content: center; }
+    .brand-right { text-align: center; }
+    .mte-logo { margin: 10px auto; }
+    .nav-pills { justify-content: center; }
 }
 </style>
 """,
@@ -597,7 +568,7 @@ hero_c1, hero_c2, hero_c3 = st.columns(3)
 with hero_c1:
     st.link_button("📞 " + t["call1"], PHONE_URL_1, use_container_width=True)
 with hero_c2:
-    st.link_button("✉️ " + t["email"], EMAIL_URL, use_container_width=True)
+    st.link_button("💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True)
 with hero_c3:
     st.link_button("📍 " + t["directions"], MAP_URL, use_container_width=True)
 
@@ -722,52 +693,7 @@ for col, (icon, title, desc) in zip(wcols, why_items):
         )
 
 # ------------------------------------------------------------
-# SERVICE REQUEST
-# ------------------------------------------------------------
-st.markdown(
-    f"""<div class="section {direction_class}">
-    <div class="section-kicker">QUICK CONTACT</div>
-    <div class="section-title">{t['request_title']}</div>
-</div>""",
-    unsafe_allow_html=True,
-)
-
-with st.form("service_request_form"):
-    c1, c2 = st.columns(2)
-    with c1:
-        customer_name = st.text_input(t["name"])
-    with c2:
-        service_options = [
-            t["select_service"],
-            t["s1"],
-            t["s2"],
-            t["s3"],
-            t["s4"],
-            t["s5"],
-            t["s6"],
-        ]
-        selected_service = st.selectbox(t["service"], service_options)
-
-    customer_message = st.text_area(t["message"], height=120)
-    submitted = st.form_submit_button(t["send"], type="primary", use_container_width=True)
-
-if submitted:
-    if not customer_name.strip() or selected_service == t["select_service"]:
-        st.warning("Please enter your name and select a service.")
-    else:
-        body = (
-            f"Hello MTE,%0D%0A%0D%0A"
-            f"Name: {customer_name}%0D%0A"
-            f"Service: {selected_service}%0D%0A"
-            f"Message: {customer_message or 'No additional message.'}%0D%0A%0D%0A"
-            f"Thank you."
-        )
-        request_url = f"mailto:{EMAIL}?subject={quote('MTE Service Request')}&body={body}"
-        st.success(t["success"])
-        st.link_button("✉️ Open Email App", request_url, use_container_width=True)
-
-# ------------------------------------------------------------
-# CONTACT SECTION (FIXED HTML RENDERING)
+# CONTACT SECTION
 # ------------------------------------------------------------
 st.markdown('<div id="contact"></div>', unsafe_allow_html=True)
 
@@ -786,23 +712,17 @@ contact_html = f"""<div class="section {direction_class}">
             <div class="contact-label">{t['phone']}</div>
             <div class="contact-value">{PHONE_1} &nbsp; | &nbsp; {PHONE_2}</div>
         </div>
-        <div class="contact-item">
-            <div class="contact-label">{t['email_label']}</div>
-            <div class="contact-value">{EMAIL}</div>
-        </div>
     </div>
 </div>"""
 
 st.markdown(contact_html, unsafe_allow_html=True)
 
-cc1, cc2, cc3, cc4 = st.columns(4)
+cc1, cc2, cc3 = st.columns(3)
 with cc1:
-    st.link_button("✉️ " + t["email"], EMAIL_URL, use_container_width=True)
-with cc2:
     st.link_button("📞 " + t["call1"], PHONE_URL_1, use_container_width=True)
-with cc3:
+with cc2:
     st.link_button("💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True)
-with cc4:
+with cc3:
     st.link_button("🗺️ " + t["directions"], MAP_URL, use_container_width=True)
 
 # ------------------------------------------------------------
