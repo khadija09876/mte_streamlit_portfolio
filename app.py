@@ -30,7 +30,12 @@ MAP_QUERY = quote(ADDRESS_EN)
 MAP_URL = f"https://www.google.com/maps/search/?api=1&query={MAP_QUERY}"
 PHONE_URL_1 = f"tel:{PHONE_1}"
 PHONE_URL_2 = f"tel:{PHONE_2}"
-WHATSAPP_URL = f"https://wa.me/{PHONE_1.replace('+', '').replace(' ', '').replace('-', '')}"
+
+# ------------------------------------------------------------
+# BOTH WHATSAPP URLS
+# ------------------------------------------------------------
+WHATSAPP_URL_1 = f"https://wa.me/{PHONE_1.replace('+', '').replace(' ', '').replace('-', '')}"
+WHATSAPP_URL_2 = f"https://wa.me/{PHONE_2.replace('+', '').replace(' ', '').replace('-', '')}"
 
 # ------------------------------------------------------------
 # TRANSLATIONS
@@ -75,10 +80,11 @@ T = {
         "w3d": "Preventive care to help systems operate efficiently.",
         "contact_title": "Contact MTE",
         "contact_text": "Need a quotation, maintenance visit or technical assistance? Get in touch via call or WhatsApp.",
-        "call1": "Call Now",
+        "call1": "Call Number 1",
         "call2": "Call Number 2",
         "directions": "Get Directions",
-        "whatsapp": "WhatsApp",
+        "whatsapp1": "WhatsApp 1",
+        "whatsapp2": "WhatsApp 2",
         "address": "Address",
         "phone": "Phone",
         "footer": "MTE Air Conditioning & Refrigeration — Professional HVAC Solutions",
@@ -122,10 +128,11 @@ T = {
         "w3d": "العناية الوقائية للمساعدة في تشغيل الأنظمة بكفاءة.",
         "contact_title": "تواصل مع MTE",
         "contact_text": "تحتاج إلى عرض سعر أو زيارة صيانة أو مساعدة فنية؟ تواصل معنا عبر الاتصال أو الواتساب.",
-        "call1": "اتصل الآن",
+        "call1": "الاتصال بالرقم 1",
         "call2": "الاتصال بالرقم 2",
         "directions": "الاتجاهات",
-        "whatsapp": "واتساب",
+        "whatsapp1": "واتساب 1",
+        "whatsapp2": "واتساب 2",
         "address": "العنوان",
         "phone": "الهاتف",
         "footer": "MTE للتكييف والتبريد — حلول HVAC احترافية",
@@ -333,12 +340,14 @@ with tab_home:
         unsafe_allow_html=True,
     )
 
-    c1, c2, c3 = st.columns(3)
+    c1, c2, c3, c4 = st.columns(4)
     with c1:
         st.link_button("📞 " + t["call1"], PHONE_URL_1, use_container_width=True)
     with c2:
-        st.link_button("💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True)
+        st.link_button("💬 " + t["whatsapp1"], WHATSAPP_URL_1, use_container_width=True)
     with c3:
+        st.link_button("💬 " + t["whatsapp2"], WHATSAPP_URL_2, use_container_width=True)
+    with c4:
         st.link_button("📍 " + t["directions"], MAP_URL, use_container_width=True)
 
 # 2. ABOUT US SECTION
@@ -445,12 +454,14 @@ with tab_contact:
         unsafe_allow_html=True,
     )
 
-    cc1, cc2, cc3 = st.columns(3)
+    cc1, cc2, cc3, cc4 = st.columns(4)
     with cc1:
         st.link_button("📞 " + t["call1"], PHONE_URL_1, use_container_width=True)
     with cc2:
-        st.link_button("💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True)
+        st.link_button("💬 " + t["whatsapp1"], WHATSAPP_URL_1, use_container_width=True)
     with cc3:
+        st.link_button("💬 " + t["whatsapp2"], WHATSAPP_URL_2, use_container_width=True)
+    with cc4:
         st.link_button("🗺️ " + t["directions"], MAP_URL, use_container_width=True)
 
 # ------------------------------------------------------------
