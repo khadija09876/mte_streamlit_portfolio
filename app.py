@@ -153,45 +153,49 @@ t = T[lang]
 is_ar = lang == "ar"
 
 # ------------------------------------------------------------
-# CUSTOM CSS (SAFE STREAMLIT STYLING)
+# CUSTOM CSS (SAFE SINGLE INJECTION)
 # ------------------------------------------------------------
-rtl_css = """
+text_align_dir = "right" if is_ar else "left"
+direction_val = "rtl" if is_ar else "ltr"
+
+custom_css = f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap');
 
-html, body, [class*="css"] { font-family: "Inter", "Cairo", sans-serif; }
+html, body, [class*="css"] {{ font-family: "Inter", "Cairo", sans-serif; }}
 
-:root {
+:root {{
     --blue: #123b8f;
     --blue-dark: #08245d;
     --red: #e32127;
     --muted: #64748b;
     --line: #dbe3ef;
-}
+}}
 
-.mte-header {
+.mte-header {{
     border-bottom: 3px solid var(--blue);
     padding: 10px 0 15px 0;
     margin-bottom: 20px;
-}
+    direction: {direction_val};
+}}
 
-.mte-brand-row {
+.mte-brand-row {{
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 15px;
     flex-wrap: wrap;
-}
+}}
 
-.brand-left {
+.brand-left {{
     color: var(--blue);
     font-weight: 800;
     line-height: 1.2;
-}
+}}
 
-.brand-left .red { color: var(--red); font-size: 1rem; }
+.brand-left .red {{ color: var(--red); font-size: 1rem; }}
 
-.mte-logo {
+.mte-logo {{
     width: 120px;
     height: 60px;
     border: 4px solid var(--blue);
@@ -206,24 +210,26 @@ html, body, [class*="css"] { font-family: "Inter", "Cairo", sans-serif; }
     font-weight: 900;
     background: white;
     margin: 0 auto;
-}
+}}
 
-.brand-right {
+.brand-right {{
     text-align: right;
     color: var(--blue);
     line-height: 1.25;
-}
+}}
 
-.hero {
+.hero {{
     border: 1px solid #d7e1ef;
     border-top: 5px solid var(--red);
     border-radius: 12px;
     padding: 30px;
     background: linear-gradient(135deg, #ffffff 0%, #f5f8fd 100%);
     margin-bottom: 20px;
-}
+    direction: {direction_val};
+    text-align: {text_align_dir};
+}}
 
-.badge {
+.badge {{
     display: inline-block;
     color: var(--blue);
     background: #eaf0fb;
@@ -232,9 +238,9 @@ html, body, [class*="css"] { font-family: "Inter", "Cairo", sans-serif; }
     padding: 4px 12px;
     font-size: 0.85rem;
     font-weight: 700;
-}
+}}
 
-.card {
+.card {{
     height: 100%;
     background: #fff;
     border: 1px solid var(--line);
@@ -243,41 +249,39 @@ html, body, [class*="css"] { font-family: "Inter", "Cairo", sans-serif; }
     padding: 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     margin-bottom: 12px;
-}
+    direction: {direction_val};
+    text-align: {text_align_dir};
+}}
 
-.card-icon {
+.card-icon {{
     font-size: 1.8rem;
     margin-bottom: 10px;
-}
+}}
 
-.contact-box {
+.contact-box {{
     background: var(--blue-dark);
     color: white;
     border-radius: 12px;
     padding: 25px;
     margin-bottom: 20px;
-}
+    direction: {direction_val};
+    text-align: {text_align_dir};
+}}
 
-.rtl { direction: rtl; text-align: right; }
+.rtl-text {{
+    direction: {direction_val};
+    text-align: {text_align_dir};
+}}
 </style>
 """
 
-if is_ar:
-    rtl_css += """
-    <style>
-    div[data-testid="stMarkdownContainer"] { text-align: right; }
-    </style>
-    """
-
-st.markdown(rtl_css, unsafe_allow_html=True)
+st.markdown(custom_css, unsafe_allow_html=True)
 
 # ------------------------------------------------------------
 # HEADER & BRANDING
 # ------------------------------------------------------------
-direction_class = "rtl" if is_ar else ""
-
 st.markdown(
-    f"""<div class="mte-header {direction_class}">
+    f"""<div class="mte-header">
     <div class="mte-brand-row">
         <div class="brand-left">
             <div>{COMPANY_EN}</div>
@@ -294,7 +298,7 @@ st.markdown(
 )
 
 # ------------------------------------------------------------
-# NATIVE STREAMLIT TABS (WORKS IN ALL LANGUAGES)
+# NATIVE STREAMLIT TABS
 # ------------------------------------------------------------
 tab_home, tab_about, tab_services, tab_projects, tab_contact = st.tabs(
     [
@@ -309,7 +313,7 @@ tab_home, tab_about, tab_services, tab_projects, tab_contact = st.tabs(
 # 1. HOME SECTION
 with tab_home:
     st.markdown(
-        f"""<div class="hero {direction_class}">
+        f"""<div class="hero">
         <span class="badge">❄️ {t['hero_badge']}</span>
         <h1 style="color: var(--blue-dark); font-size: 2rem; margin: 15px 0;">{t['hero_title']}</h1>
         <p style="color: var(--muted); font-size: 1rem; line-height: 1.6;">{t['hero_text']}</p>
@@ -319,22 +323,16 @@ with tab_home:
 
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.link_button(
-            "📞 " + t["call1"], PHONE_URL_1, use_container_width=True
-        )
+        st.link_button("📞 " + t["call1"], PHONE_URL_1, use_container_width=True)
     with c2:
-        st.link_button(
-            "💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True
-        )
+        st.link_button("💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True)
     with c3:
-        st.link_button(
-            "📍 " + t["directions"], MAP_URL, use_container_width=True
-        )
+        st.link_button("📍 " + t["directions"], MAP_URL, use_container_width=True)
 
 # 2. ABOUT US SECTION
 with tab_about:
     st.markdown(
-        f"""<div class="{direction_class}">
+        f"""<div class="rtl-text">
         <h2 style="color: var(--blue-dark);">{t['about_title']}</h2>
         <p style="color: var(--muted); font-size: 1rem;">{t['about_text']}</p>
     </div>""",
@@ -360,7 +358,7 @@ with tab_about:
 # 3. SERVICES SECTION
 with tab_services:
     st.markdown(
-        f"""<div class="{direction_class}">
+        f"""<div class="rtl-text">
         <h2 style="color: var(--blue-dark);">{t['service_title']}</h2>
         <p style="color: var(--muted);">{t['service_intro']}</p>
     </div>""",
@@ -381,7 +379,7 @@ with tab_services:
         for col, (icon, title, desc) in zip(cols, services[start : start + 3]):
             with col:
                 st.markdown(
-                    f"""<div class="card {direction_class}">
+                    f"""<div class="card">
             <div class="card-icon">{icon}</div>
             <h3 style="color:var(--blue-dark); font-size:1.1rem;">{title}</h3>
             <p style="color:var(--muted); font-size:0.85rem;">{desc}</p>
@@ -392,7 +390,7 @@ with tab_services:
 # 4. PROJECTS SECTION
 with tab_projects:
     st.markdown(
-        f"""<div class="{direction_class}">
+        f"""<div class="rtl-text">
         <h2 style="color: var(--blue-dark);">{t['projects_title']}</h2>
     </div>""",
         unsafe_allow_html=True,
@@ -408,7 +406,7 @@ with tab_projects:
     for col, (icon, title) in zip(pcols, project_items):
         with col:
             st.markdown(
-                f"""<div class="card {direction_class}" style="text-align:center;">
+                f"""<div class="card" style="text-align:center;">
         <div class="card-icon">{icon}</div>
         <h3 style="color:var(--blue-dark); font-size:1.05rem;">{title}</h3>
     </div>""",
@@ -420,7 +418,7 @@ with tab_contact:
     address_val = ADDRESS_AR if is_ar else ADDRESS_EN
 
     st.markdown(
-        f"""<div class="contact-box {direction_class}">
+        f"""<div class="contact-box">
         <h2 style="color:white; margin-bottom:10px;">{t['contact_title']}</h2>
         <p style="color:#d9e4f8; margin-bottom:20px;">{t['contact_text']}</p>
         <div style="margin-bottom:15px;">
@@ -437,24 +435,18 @@ with tab_contact:
 
     cc1, cc2, cc3 = st.columns(3)
     with cc1:
-        st.link_button(
-            "📞 " + t["call1"], PHONE_URL_1, use_container_width=True
-        )
+        st.link_button("📞 " + t["call1"], PHONE_URL_1, use_container_width=True)
     with cc2:
-        st.link_button(
-            "💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True
-        )
+        st.link_button("💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True)
     with cc3:
-        st.link_button(
-            "🗺️ " + t["directions"], MAP_URL, use_container_width=True
-        )
+        st.link_button("🗺️ " + t["directions"], MAP_URL, use_container_width=True)
 
 # ------------------------------------------------------------
 # FOOTER
 # ------------------------------------------------------------
 st.divider()
 st.markdown(
-    f"""<div style="text-align:center; color:#718096; font-size:0.85rem;" class="{direction_class}">
+    f"""<div style="text-align:center; color:#718096; font-size:0.85rem;" class="rtl-text">
     {t['footer']}
 </div>""",
     unsafe_allow_html=True,
