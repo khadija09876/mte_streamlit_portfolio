@@ -23,8 +23,8 @@ COMPANY_EN = "MTE Air Conditioning & Refrigeration"
 COMPANY_AR = "مؤسسة MTE للتبريد والتكييف"
 
 EMAIL = "info@mte-ac.com"  # Replace with the company's real email
-PHONE_1 = "0500000000"      # Replace with the exact number from your business card
-PHONE_2 = "0570000000"      # Replace with the exact number from your business card
+PHONE_1 = "0599905221"      # Replace with the exact number from your business card
+PHONE_2 = "0507635181"      # Replace with the exact number from your business card
 
 ADDRESS_EN = "Al Rabwah, Al Dhahr Al Ghafari Street, Riyadh, Saudi Arabia"
 ADDRESS_AR = "الرياض، حي الربوة، شارع ابن ذي الغفار، المملكة العربية السعودية"
