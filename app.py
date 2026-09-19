@@ -16,15 +16,14 @@ st.set_page_config(
 
 # ------------------------------------------------------------
 # COMPANY CONFIGURATION
-# Edit only these values if you need to update contact details.
 # ------------------------------------------------------------
 COMPANY_NAME = "MTE"
 COMPANY_EN = "MTE Air Conditioning & Refrigeration"
 COMPANY_AR = "مؤسسة MTE للتبريد والتكييف"
 
-EMAIL = "info@mte-ac.com"  # Replace with the company's real email
-PHONE_1 = "0599905221"      # Replace with the exact number from your business card
-PHONE_2 = "0599905221"      # Replace with the exact number from your business card
+EMAIL = "info@mte-ac.com"
+PHONE_1 = "0500000000"
+PHONE_2 = "0570000000"
 
 ADDRESS_EN = "Al Rabwah, Al Dhahr Al Ghafari Street, Riyadh, Saudi Arabia"
 ADDRESS_AR = "الرياض، حي الربوة، شارع ابن ذي الغفار، المملكة العربية السعودية"
@@ -48,18 +47,11 @@ T = {
         "nav_contact": "Contact",
         "hero_badge": "Professional HVAC Solutions",
         "hero_title": "Reliable Cooling. Comfortable Spaces.",
-        "hero_text": (
-            "Professional air-conditioning and refrigeration solutions "
-            "for residential, commercial and industrial environments."
-        ),
+        "hero_text": "Professional air-conditioning and refrigeration solutions for residential, commercial and industrial environments.",
         "view_services": "Explore Services",
         "contact_us": "Contact Us",
         "about_title": "About MTE",
-        "about_text": (
-            "MTE specializes in air-conditioning and refrigeration services, "
-            "with a practical focus on installation, maintenance, troubleshooting "
-            "and dependable cooling performance."
-        ),
+        "about_text": "MTE specializes in air-conditioning and refrigeration services, with a practical focus on installation, maintenance, troubleshooting and dependable cooling performance.",
         "service_title": "Our Services",
         "service_intro": "Complete HVAC support from installation to preventive maintenance.",
         "s1": "Air Conditioning",
@@ -179,7 +171,6 @@ T = {
 if "lang" not in st.session_state:
     st.session_state.lang = "en"
 
-# Sidebar language control
 with st.sidebar:
     st.markdown("### 🌐 Language")
     selected = st.radio(
@@ -195,8 +186,7 @@ t = T[lang]
 is_ar = lang == "ar"
 
 # ------------------------------------------------------------
-# CUSTOM CSS — INSPIRED BY THE PROVIDED MTE BUSINESS CARD
-# White background + deep blue typography + red accents + MTE oval.
+# CUSTOM CSS
 # ------------------------------------------------------------
 st.markdown(
     """
@@ -232,10 +222,8 @@ html {
     padding-bottom: 2rem;
 }
 
-/* Hide Streamlit chrome */
 #MainMenu, footer, header { visibility: hidden; }
 
-/* Header */
 .mte-header {
     border-bottom: 3px solid var(--blue);
     padding: 12px 0 14px 0;
@@ -302,7 +290,6 @@ html {
     font-weight: 800;
 }
 
-/* Navigation */
 .nav-pills {
     display: flex;
     flex-wrap: wrap;
@@ -327,7 +314,6 @@ html {
     border-color: var(--blue);
 }
 
-/* Hero */
 .hero {
     border: 1px solid #d7e1ef;
     border-top: 6px solid var(--red);
@@ -359,10 +345,6 @@ html {
     font-weight: 850;
 }
 
-.hero h1 span {
-    color: var(--red);
-}
-
 .hero p {
     color: var(--muted);
     font-size: 1.03rem;
@@ -370,10 +352,9 @@ html {
     max-width: 760px;
 }
 
-/* Section headings */
 .section {
     scroll-margin-top: 30px;
-    margin: 50px 0;
+    margin: 40px 0 20px 0;
 }
 
 .section-kicker {
@@ -397,7 +378,6 @@ html {
     margin-bottom: 24px;
 }
 
-/* Cards */
 .card {
     height: 100%;
     background: #fff;
@@ -438,7 +418,6 @@ html {
     font-size: .91rem;
 }
 
-/* Stats */
 .stat {
     text-align: center;
     padding: 22px 12px;
@@ -459,22 +438,26 @@ html {
     font-size: .8rem;
 }
 
-/* Contact */
+/* Contact Box Styling */
 .contact-box {
     background: var(--blue-dark);
     color: white;
     border-radius: 12px;
     padding: 32px;
     box-shadow: 0 14px 40px rgba(8,36,93,.18);
+    margin-bottom: 20px;
 }
 
 .contact-box h2 {
-    color: white;
+    color: white !important;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .contact-box p {
     color: #d9e4f8;
     line-height: 1.7;
+    margin-bottom: 20px;
 }
 
 .contact-item {
@@ -482,9 +465,13 @@ html {
     border-bottom: 1px solid rgba(255,255,255,.12);
 }
 
+.contact-item:last-child {
+    border-bottom: none;
+}
+
 .contact-label {
     color: #9db9ed;
-    font-size: .72rem;
+    font-size: .75rem;
     text-transform: uppercase;
     font-weight: 800;
     letter-spacing: .8px;
@@ -492,11 +479,11 @@ html {
 
 .contact-value {
     color: white;
-    font-size: .92rem;
-    margin-top: 3px;
+    font-size: .95rem;
+    margin-top: 4px;
+    font-weight: 500;
 }
 
-/* Streamlit buttons */
 .stLinkButton > a, .stButton > button {
     border-radius: 7px !important;
     font-weight: 700 !important;
@@ -523,7 +510,6 @@ html {
     background: var(--red-dark) !important;
 }
 
-/* Form */
 div[data-testid="stForm"] {
     border: 1px solid var(--line);
     border-radius: 10px;
@@ -531,7 +517,6 @@ div[data-testid="stForm"] {
     background: #fafcff;
 }
 
-/* Footer */
 .footer {
     border-top: 1px solid var(--line);
     margin-top: 60px;
@@ -564,8 +549,7 @@ div[data-testid="stForm"] {
 direction_class = "rtl" if is_ar else ""
 
 st.markdown(
-    f"""
-<div class="mte-header {direction_class}">
+    f"""<div class="mte-header {direction_class}">
     <div class="mte-brand-row">
         <div class="brand-left">
             <div>{COMPANY_EN}</div>
@@ -579,22 +563,19 @@ st.markdown(
             <div>حلول تكييف وتبريد</div>
         </div>
     </div>
-</div>
-""",
+</div>""",
     unsafe_allow_html=True,
 )
 
-# Navigation links
+# Navigation
 st.markdown(
-    f"""
-<div class="nav-pills {'rtl' if is_ar else ''}">
+    f"""<div class="nav-pills {direction_class}">
     <a href="#home">{t['nav_home']}</a>
     <a href="#about">{t['nav_about']}</a>
     <a href="#services">{t['nav_services']}</a>
     <a href="#projects">{t['nav_projects']}</a>
     <a href="#contact">{t['nav_contact']}</a>
-</div>
-""",
+</div>""",
     unsafe_allow_html=True,
 )
 
@@ -604,13 +585,11 @@ st.markdown(
 st.markdown('<div id="home"></div>', unsafe_allow_html=True)
 
 st.markdown(
-    f"""
-<div class="hero {'rtl' if is_ar else ''}">
+    f"""<div class="hero {direction_class}">
     <span class="badge">❄️ {t['hero_badge']}</span>
-    <h1>{t['hero_title'].replace(" ", " ", 1)}</h1>
+    <h1>{t['hero_title']}</h1>
     <p>{t['hero_text']}</p>
-</div>
-""",
+</div>""",
     unsafe_allow_html=True,
 )
 
@@ -627,13 +606,11 @@ with hero_c3:
 # ------------------------------------------------------------
 st.markdown('<div id="about"></div>', unsafe_allow_html=True)
 st.markdown(
-    f"""
-<div class="section {'rtl' if is_ar else ''}">
+    f"""<div class="section {direction_class}">
     <div class="section-kicker">MTE</div>
     <div class="section-title">{t['about_title']}</div>
     <div class="section-subtitle">{t['about_text']}</div>
-</div>
-""",
+</div>""",
     unsafe_allow_html=True,
 )
 
@@ -656,13 +633,11 @@ for col, (big, small) in zip([a1, a2, a3, a4], stats):
 # ------------------------------------------------------------
 st.markdown('<div id="services"></div>', unsafe_allow_html=True)
 st.markdown(
-    f"""
-<div class="section {'rtl' if is_ar else ''}">
+    f"""<div class="section {direction_class}">
     <div class="section-kicker">MTE SERVICES</div>
     <div class="section-title">{t['service_title']}</div>
     <div class="section-subtitle">{t['service_intro']}</div>
-</div>
-""",
+</div>""",
     unsafe_allow_html=True,
 )
 
@@ -680,28 +655,24 @@ for start in range(0, len(services), 3):
     for col, (icon, title, desc) in zip(cols, services[start:start + 3]):
         with col:
             st.markdown(
-                f"""
-<div class="card {'rtl' if is_ar else ''}">
+                f"""<div class="card {direction_class}">
     <div class="card-icon">{icon}</div>
     <h3>{title}</h3>
     <p>{desc}</p>
-</div>
-""",
+</div>""",
                 unsafe_allow_html=True,
             )
     st.write("")
 
 # ------------------------------------------------------------
-# PROJECT / WORK AREAS
+# PROJECTS
 # ------------------------------------------------------------
 st.markdown('<div id="projects"></div>', unsafe_allow_html=True)
 st.markdown(
-    f"""
-<div class="section {'rtl' if is_ar else ''}">
+    f"""<div class="section {direction_class}">
     <div class="section-kicker">CAPABILITIES</div>
     <div class="section-title">{t['projects_title']}</div>
-</div>
-""",
+</div>""",
     unsafe_allow_html=True,
 )
 
@@ -715,12 +686,10 @@ pcols = st.columns(4)
 for col, (icon, title) in zip(pcols, project_items):
     with col:
         st.markdown(
-            f"""
-<div class="card {'rtl' if is_ar else ''}">
+            f"""<div class="card {direction_class}">
     <div class="card-icon">{icon}</div>
     <h3>{title}</h3>
-</div>
-""",
+</div>""",
             unsafe_allow_html=True,
         )
 
@@ -728,12 +697,10 @@ for col, (icon, title) in zip(pcols, project_items):
 # WHY US
 # ------------------------------------------------------------
 st.markdown(
-    f"""
-<div class="section {'rtl' if is_ar else ''}">
+    f"""<div class="section {direction_class}">
     <div class="section-kicker">OUR APPROACH</div>
     <div class="section-title">{t['why_title']}</div>
-</div>
-""",
+</div>""",
     unsafe_allow_html=True,
 )
 
@@ -746,13 +713,11 @@ wcols = st.columns(3)
 for col, (icon, title, desc) in zip(wcols, why_items):
     with col:
         st.markdown(
-            f"""
-<div class="card {'rtl' if is_ar else ''}">
+            f"""<div class="card {direction_class}">
     <div class="card-icon">{icon}</div>
     <h3>{title}</h3>
     <p>{desc}</p>
-</div>
-""",
+</div>""",
             unsafe_allow_html=True,
         )
 
@@ -760,12 +725,10 @@ for col, (icon, title, desc) in zip(wcols, why_items):
 # SERVICE REQUEST
 # ------------------------------------------------------------
 st.markdown(
-    f"""
-<div class="section {'rtl' if is_ar else ''}">
+    f"""<div class="section {direction_class}">
     <div class="section-kicker">QUICK CONTACT</div>
     <div class="section-title">{t['request_title']}</div>
-</div>
-""",
+</div>""",
     unsafe_allow_html=True,
 )
 
@@ -804,21 +767,20 @@ if submitted:
         st.link_button("✉️ Open Email App", request_url, use_container_width=True)
 
 # ------------------------------------------------------------
-# CONTACT
+# CONTACT SECTION (FIXED HTML RENDERING)
 # ------------------------------------------------------------
 st.markdown('<div id="contact"></div>', unsafe_allow_html=True)
 
-st.markdown(
-    f"""
-<div class="section {'rtl' if is_ar else ''}">
+address_val = ADDRESS_AR if is_ar else ADDRESS_EN
+
+contact_html = f"""<div class="section {direction_class}">
     <div class="contact-box">
         <div class="section-kicker" style="color:#e86b70;">GET IN TOUCH</div>
         <h2>{t['contact_title']}</h2>
         <p>{t['contact_text']}</p>
-
         <div class="contact-item">
             <div class="contact-label">{t['address']}</div>
-            <div class="contact-value">{ADDRESS_AR if is_ar else ADDRESS_EN}</div>
+            <div class="contact-value">{address_val}</div>
         </div>
         <div class="contact-item">
             <div class="contact-label">{t['phone']}</div>
@@ -829,10 +791,9 @@ st.markdown(
             <div class="contact-value">{EMAIL}</div>
         </div>
     </div>
-</div>
-""",
-    unsafe_allow_html=True,
-)
+</div>"""
+
+st.markdown(contact_html, unsafe_allow_html=True)
 
 cc1, cc2, cc3, cc4 = st.columns(4)
 with cc1:
@@ -848,11 +809,9 @@ with cc4:
 # FOOTER
 # ------------------------------------------------------------
 st.markdown(
-    f"""
-<div class="footer {'rtl' if is_ar else ''}">
+    f"""<div class="footer {direction_class}">
     {t['footer']}<br>
     <span style="font-size:.72rem;">{t['note']}</span>
-</div>
-""",
+</div>""",
     unsafe_allow_html=True,
 )
