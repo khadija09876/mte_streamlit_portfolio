@@ -153,10 +153,11 @@ t = T[lang]
 is_ar = lang == "ar"
 
 # ------------------------------------------------------------
-# CUSTOM CSS (SAFE SINGLE INJECTION)
+# CUSTOM CSS WITH RTL TAB ALIGNMENT
 # ------------------------------------------------------------
 text_align_dir = "right" if is_ar else "left"
 direction_val = "rtl" if is_ar else "ltr"
+tab_flex_dir = "row-reverse" if is_ar else "row"
 
 custom_css = f"""
 <style>
@@ -170,6 +171,17 @@ html, body, [class*="css"] {{ font-family: "Inter", "Cairo", sans-serif; }}
     --red: #e32127;
     --muted: #64748b;
     --line: #dbe3ef;
+}}
+
+/* Streamlit Tabs RTL Alignment Fix */
+div[data-baseweb="tab-list"] {{
+    direction: {direction_val};
+    flex-direction: {tab_flex_dir};
+    justify-content: {"flex-start" if is_ar else "flex-start"};
+}}
+
+.stTabs [data-baseweb="tab-highlight"] {{
+    background-color: var(--red);
 }}
 
 .mte-header {{
