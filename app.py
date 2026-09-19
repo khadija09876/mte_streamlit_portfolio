@@ -20,8 +20,8 @@ COMPANY_NAME = "MTE"
 COMPANY_EN = "MTE Air Conditioning & Refrigeration"
 COMPANY_AR = "مؤسسة MTE للتبريد والتكييف"
 
-PHONE_1 = "0599905221"
-PHONE_2 = "0507635181"
+PHONE_1 = "0500000000"
+PHONE_2 = "0570000000"
 
 ADDRESS_EN = "Al Rabwah, Al Dhahr Al Ghafari Street, Riyadh, Saudi Arabia"
 ADDRESS_AR = "الرياض، حي الربوة، شارع ابن ذي الغفار، المملكة العربية السعودية"
@@ -180,6 +180,21 @@ st.markdown(
 html, body, [class*="css"] { font-family: "Inter", "Cairo", sans-serif; }
 
 #MainMenu, footer, header { visibility: hidden; }
+
+/* Styling Streamlit Radio Labels for Language and Navigation to guarantee high contrast visibility */
+div[data-testid="stRadio"] label p {
+    color: var(--blue-dark) !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+}
+
+div[data-testid="stRadio"] label {
+    background-color: var(--soft) !important;
+    padding: 6px 14px !important;
+    border-radius: 8px !important;
+    border: 1px solid var(--line) !important;
+    margin-right: 6px !important;
+}
 
 .mte-header {
     border-bottom: 3px solid var(--blue);
