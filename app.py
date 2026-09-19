@@ -20,8 +20,8 @@ COMPANY_NAME = "MTE"
 COMPANY_EN = "MTE Air Conditioning & Refrigeration"
 COMPANY_AR = "مؤسسة MTE للتبريد والتكييف"
 
-PHONE_1 = "0500000000"
-PHONE_2 = "0570000000"
+PHONE_1 = "0599905221"
+PHONE_2 = "0507635181"
 
 ADDRESS_EN = "Al Rabwah, Al Dhahr Al Ghafari Street, Riyadh, Saudi Arabia"
 ADDRESS_AR = "الرياض، حي الربوة، شارع ابن ذي الغفار، المملكة العربية السعودية"
