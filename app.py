@@ -82,7 +82,6 @@ T = {
         "address": "Address",
         "phone": "Phone",
         "footer": "MTE Air Conditioning & Refrigeration — Professional HVAC Solutions",
-        "note": "Replace the contact placeholders in the CONFIGURATION section before deployment.",
     },
     "ar": {
         "nav_home": "الرئيسية",
@@ -130,7 +129,6 @@ T = {
         "address": "العنوان",
         "phone": "الهاتف",
         "footer": "MTE للتكييف والتبريد — حلول HVAC احترافية",
-        "note": "قم بتعديل أرقام الاتصال في قسم CONFIGURATION قبل النشر.",
     },
 }
 
@@ -140,19 +138,14 @@ T = {
 if "lang" not in st.session_state:
     st.session_state.lang = "en"
 
-if "page" not in st.session_state:
-    st.session_state.page = "Home"
-
 with st.sidebar:
     st.markdown("### 🌐 Select Language / اختر اللغة")
     lang_choice = st.radio(
         "Language",
         ["English", "العربية"],
         index=0 if st.session_state.lang == "en" else 1,
-        key="language_selector"
+        key="language_selector",
     )
-    
-    # Correct state assignment
     st.session_state.lang = "en" if lang_choice == "English" else "ar"
 
 lang = st.session_state.lang
@@ -160,53 +153,33 @@ t = T[lang]
 is_ar = lang == "ar"
 
 # ------------------------------------------------------------
-# CUSTOM CSS
+# CUSTOM CSS (SAFE STREAMLIT STYLING)
 # ------------------------------------------------------------
-st.markdown(
-    """
+rtl_css = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap');
+
+html, body, [class*="css"] { font-family: "Inter", "Cairo", sans-serif; }
 
 :root {
     --blue: #123b8f;
     --blue-dark: #08245d;
     --red: #e32127;
-    --ink: #172033;
     --muted: #64748b;
     --line: #dbe3ef;
-    --soft: #f5f8fc;
-}
-
-html, body, [class*="css"] { font-family: "Inter", "Cairo", sans-serif; }
-
-#MainMenu, footer, header { visibility: hidden; }
-
-/* Styling Streamlit Radio Labels for Language and Navigation to guarantee high contrast visibility */
-div[data-testid="stRadio"] label p {
-    color: var(--blue-dark) !important;
-    font-weight: 700 !important;
-    font-size: 1rem !important;
-}
-
-div[data-testid="stRadio"] label {
-    background-color: var(--soft) !important;
-    padding: 6px 14px !important;
-    border-radius: 8px !important;
-    border: 1px solid var(--line) !important;
-    margin-right: 6px !important;
 }
 
 .mte-header {
     border-bottom: 3px solid var(--blue);
-    padding: 12px 0 14px 0;
-    margin-bottom: 18px;
+    padding: 10px 0 15px 0;
+    margin-bottom: 20px;
 }
 
 .mte-brand-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
@@ -216,20 +189,20 @@ div[data-testid="stRadio"] label {
     line-height: 1.2;
 }
 
-.brand-left .red { color: var(--red); font-size: 1.02rem; }
+.brand-left .red { color: var(--red); font-size: 1rem; }
 
 .mte-logo {
-    width: 128px;
-    height: 66px;
-    border: 5px solid var(--blue);
-    outline: 4px solid var(--red);
-    outline-offset: -10px;
+    width: 120px;
+    height: 60px;
+    border: 4px solid var(--blue);
+    outline: 3px solid var(--red);
+    outline-offset: -8px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--red);
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 900;
     background: white;
     margin: 0 auto;
@@ -243,12 +216,11 @@ div[data-testid="stRadio"] label {
 
 .hero {
     border: 1px solid #d7e1ef;
-    border-top: 6px solid var(--red);
+    border-top: 5px solid var(--red);
     border-radius: 12px;
-    padding: 38px 42px;
+    padding: 30px;
     background: linear-gradient(135deg, #ffffff 0%, #f5f8fd 100%);
-    box-shadow: 0 10px 35px rgba(18,59,143,.08);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .badge {
@@ -256,10 +228,10 @@ div[data-testid="stRadio"] label {
     color: var(--blue);
     background: #eaf0fb;
     border: 1px solid #c9d8ef;
-    border-radius: 999px;
-    padding: 6px 12px;
-    font-size: .78rem;
-    font-weight: 800;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
 }
 
 .card {
@@ -268,38 +240,36 @@ div[data-testid="stRadio"] label {
     border: 1px solid var(--line);
     border-top: 4px solid var(--blue);
     border-radius: 10px;
-    padding: 22px;
-    box-shadow: 0 7px 25px rgba(15,35,70,.055);
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     margin-bottom: 12px;
 }
 
 .card-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
-    background: #edf3fd;
-    color: var(--blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    margin-bottom: 13px;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
 }
 
 .contact-box {
     background: var(--blue-dark);
     color: white;
     border-radius: 12px;
-    padding: 32px;
-    box-shadow: 0 14px 40px rgba(8,36,93,.18);
+    padding: 25px;
     margin-bottom: 20px;
 }
 
 .rtl { direction: rtl; text-align: right; }
 </style>
-""",
-    unsafe_allow_html=True,
-)
+"""
+
+if is_ar:
+    rtl_css += """
+    <style>
+    div[data-testid="stMarkdownContainer"] { text-align: right; }
+    </style>
+    """
+
+st.markdown(rtl_css, unsafe_allow_html=True)
 
 # ------------------------------------------------------------
 # HEADER & BRANDING
@@ -324,55 +294,49 @@ st.markdown(
 )
 
 # ------------------------------------------------------------
-# NAVIGATION BAR (WORKING STREAMLIT TABS)
+# NATIVE STREAMLIT TABS (WORKS IN ALL LANGUAGES)
 # ------------------------------------------------------------
-nav_options = [
-    t["nav_home"],
-    t["nav_about"],
-    t["nav_services"],
-    t["nav_projects"],
-    t["nav_contact"],
-]
-
-selected_tab = st.radio(
-    "Navigation",
-    nav_options,
-    horizontal=True,
-    label_visibility="collapsed",
-    key="main_nav_tabs"
+tab_home, tab_about, tab_services, tab_projects, tab_contact = st.tabs(
+    [
+        t["nav_home"],
+        t["nav_about"],
+        t["nav_services"],
+        t["nav_projects"],
+        t["nav_contact"],
+    ]
 )
 
-st.divider()
-
-# ------------------------------------------------------------
-# PAGE CONTENT ROUTING
-# ------------------------------------------------------------
-
 # 1. HOME SECTION
-if selected_tab == t["nav_home"]:
+with tab_home:
     st.markdown(
         f"""<div class="hero {direction_class}">
         <span class="badge">❄️ {t['hero_badge']}</span>
-        <h1 style="color: var(--blue-dark); font-size: 2.2rem; margin: 15px 0;">{t['hero_title']}</h1>
-        <p style="color: var(--muted); font-size: 1.1rem; line-height: 1.6;">{t['hero_text']}</p>
+        <h1 style="color: var(--blue-dark); font-size: 2rem; margin: 15px 0;">{t['hero_title']}</h1>
+        <p style="color: var(--muted); font-size: 1rem; line-height: 1.6;">{t['hero_text']}</p>
     </div>""",
         unsafe_allow_html=True,
     )
 
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.link_button("📞 " + t["call1"], PHONE_URL_1, use_container_width=True)
+        st.link_button(
+            "📞 " + t["call1"], PHONE_URL_1, use_container_width=True
+        )
     with c2:
-        st.link_button("💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True)
+        st.link_button(
+            "💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True
+        )
     with c3:
-        st.link_button("📍 " + t["directions"], MAP_URL, use_container_width=True)
+        st.link_button(
+            "📍 " + t["directions"], MAP_URL, use_container_width=True
+        )
 
 # 2. ABOUT US SECTION
-elif selected_tab == t["nav_about"]:
+with tab_about:
     st.markdown(
         f"""<div class="{direction_class}">
         <h2 style="color: var(--blue-dark);">{t['about_title']}</h2>
-        <p style="color: var(--muted); font-size: 1.1rem;">{t['about_text']}</p>
+        <p style="color: var(--muted); font-size: 1rem;">{t['about_text']}</p>
     </div>""",
         unsafe_allow_html=True,
     )
@@ -387,14 +351,14 @@ elif selected_tab == t["nav_about"]:
     for col, (big, small) in zip([a1, a2, a3, a4], stats):
         with col:
             st.markdown(
-                f'<div style="text-align:center; padding:20px; background:#f5f8fc; border-radius:10px; border:1px solid #dbe3ef;">'
-                f'<strong style="color:var(--blue); font-size:1.5rem; display:block;">{big}</strong>'
-                f'<span style="color:var(--muted); font-size:0.85rem;">{small}</span></div>',
+                f'<div style="text-align:center; padding:15px; background:#f5f8fc; border-radius:10px; border:1px solid #dbe3ef;">'
+                f'<strong style="color:var(--blue); font-size:1.4rem; display:block;">{big}</strong>'
+                f'<span style="color:var(--muted); font-size:0.8rem;">{small}</span></div>',
                 unsafe_allow_html=True,
             )
 
 # 3. SERVICES SECTION
-elif selected_tab == t["nav_services"]:
+with tab_services:
     st.markdown(
         f"""<div class="{direction_class}">
         <h2 style="color: var(--blue-dark);">{t['service_title']}</h2>
@@ -419,14 +383,14 @@ elif selected_tab == t["nav_services"]:
                 st.markdown(
                     f"""<div class="card {direction_class}">
             <div class="card-icon">{icon}</div>
-            <h3 style="color:var(--blue-dark);">{title}</h3>
-            <p style="color:var(--muted); font-size:0.9rem;">{desc}</p>
+            <h3 style="color:var(--blue-dark); font-size:1.1rem;">{title}</h3>
+            <p style="color:var(--muted); font-size:0.85rem;">{desc}</p>
         </div>""",
                     unsafe_allow_html=True,
                 )
 
 # 4. PROJECTS SECTION
-elif selected_tab == t["nav_projects"]:
+with tab_projects:
     st.markdown(
         f"""<div class="{direction_class}">
         <h2 style="color: var(--blue-dark);">{t['projects_title']}</h2>
@@ -444,15 +408,15 @@ elif selected_tab == t["nav_projects"]:
     for col, (icon, title) in zip(pcols, project_items):
         with col:
             st.markdown(
-                f"""<div class="card {direction_class}">
+                f"""<div class="card {direction_class}" style="text-align:center;">
         <div class="card-icon">{icon}</div>
-        <h3 style="color:var(--blue-dark);">{title}</h3>
+        <h3 style="color:var(--blue-dark); font-size:1.05rem;">{title}</h3>
     </div>""",
                 unsafe_allow_html=True,
             )
 
 # 5. CONTACT SECTION
-elif selected_tab == t["nav_contact"]:
+with tab_contact:
     address_val = ADDRESS_AR if is_ar else ADDRESS_EN
 
     st.markdown(
@@ -461,11 +425,11 @@ elif selected_tab == t["nav_contact"]:
         <p style="color:#d9e4f8; margin-bottom:20px;">{t['contact_text']}</p>
         <div style="margin-bottom:15px;">
             <div style="color:#9db9ed; font-size:0.8rem; font-weight:bold;">{t['address']}</div>
-            <div style="color:white; font-size:1rem;">{address_val}</div>
+            <div style="color:white; font-size:0.95rem;">{address_val}</div>
         </div>
         <div>
             <div style="color:#9db9ed; font-size:0.8rem; font-weight:bold;">{t['phone']}</div>
-            <div style="color:white; font-size:1rem;">{PHONE_1} &nbsp; | &nbsp; {PHONE_2}</div>
+            <div style="color:white; font-size:0.95rem;">{PHONE_1} &nbsp; | &nbsp; {PHONE_2}</div>
         </div>
     </div>""",
         unsafe_allow_html=True,
@@ -473,11 +437,17 @@ elif selected_tab == t["nav_contact"]:
 
     cc1, cc2, cc3 = st.columns(3)
     with cc1:
-        st.link_button("📞 " + t["call1"], PHONE_URL_1, use_container_width=True)
+        st.link_button(
+            "📞 " + t["call1"], PHONE_URL_1, use_container_width=True
+        )
     with cc2:
-        st.link_button("💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True)
+        st.link_button(
+            "💬 " + t["whatsapp"], WHATSAPP_URL, use_container_width=True
+        )
     with cc3:
-        st.link_button("🗺️ " + t["directions"], MAP_URL, use_container_width=True)
+        st.link_button(
+            "🗺️ " + t["directions"], MAP_URL, use_container_width=True
+        )
 
 # ------------------------------------------------------------
 # FOOTER
